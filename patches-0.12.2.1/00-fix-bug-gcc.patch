@@ -1,3 +1,4 @@
+# https://forum.qt.io/topic/142527/qt-4-8-7-compilation-fails-qprint-errors/4
 --- wkhtmltopdf-0.12.2.1/qt/src/corelib/global/qglobal.h	2015-01-18 09:09:30.000000000 +0000
 +++ patches-0.12.2.1/qglobal.h	2024-10-15 17:44:05.892968006 +0000
 @@ -2382,7 +2382,7 @@

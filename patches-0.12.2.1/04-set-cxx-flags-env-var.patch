@@ -1,10 +1,11 @@
+# Set QMAKE_CXXFLAGS using env vars
 --- wkhtmltopdf-0.12.2.1/qt/mkspecs/common/linux.conf	2015-01-18 09:09:30.000000000 +0000
 +++ patches-0.12.2.1/linux.conf	2024-10-15 16:25:21.474350011 +0000
 @@ -4,6 +4,7 @@
 
  QMAKE_CFLAGS_THREAD	+= -D_REENTRANT
  QMAKE_CXXFLAGS_THREAD	+= $$QMAKE_CFLAGS_THREAD
-+QMAKE_CXXFLAGS = $$QMAKE_CFLAGS -std=gnu++98 -I/usr/local/ssl/include
++QMAKE_CXXFLAGS += $$QMAKE_CFLAGS $$(QMAKE_CXXFLAGS)
 
  QMAKE_INCDIR          =
  QMAKE_LIBDIR          =
