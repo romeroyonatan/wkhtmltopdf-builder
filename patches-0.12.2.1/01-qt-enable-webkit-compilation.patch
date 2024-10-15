@@ -1,0 +1,13 @@
+--- wkhtmltopdf-0.12.2.1/qt/configure	2015-01-18 09:09:30.000000000 +0000
++++ patches-0.12.2.1/configure	2024-10-15 16:16:39.047674006 +0000
+@@ -7735,8 +7735,8 @@
+                 canBuildWebKit="no"
+                 ;;
+ 	    *)
+-		canBuildWebKit="no"
+-		canBuildQtXmlPatterns="no"
++		canBuildWebKit="yes"
++		canBuildQtXmlPatterns="yes"
+ 		;;
+ 	esac
+ 	;;

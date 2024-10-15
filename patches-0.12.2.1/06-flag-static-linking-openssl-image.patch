@@ -1,0 +1,10 @@
+--- wkhtmltopdf-0.12.2.1/src/image/image.pro	2015-01-18 18:56:38.000000000 +0000
++++ patches-0.12.2.1/image.pro	2024-10-15 20:22:28.634143004 +0000
+@@ -22,6 +22,7 @@
+ DESTDIR = ../../bin
+ DEPENDPATH += . ../shared
+ INCLUDEPATH += . ../shared
++QMAKE_LFLAGS += -static-libgcc -L /usr/local/ssl/lib
+
+ unix {
+     man.path=$$INSTALLBASE/share/man/man1

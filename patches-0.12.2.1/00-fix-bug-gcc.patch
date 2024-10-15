@@ -1,0 +1,10 @@
+--- wkhtmltopdf-0.12.2.1/qt/src/corelib/global/qglobal.h	2015-01-18 09:09:30.000000000 +0000
++++ patches-0.12.2.1/qglobal.h	2024-10-15 17:44:05.892968006 +0000
+@@ -2382,7 +2382,7 @@
+ for (QForeachContainer<__typeof__(container)> _container_(container); \
+      !_container_.brk && _container_.i != _container_.e;              \
+      __extension__  ({ ++_container_.brk; ++_container_.i; }))                       \
+-    for (variable = *_container_.i;; __extension__ ({--_container_.brk; break;}))
++    for (variable = *_container_.i;; __extension__ ({--_container_.brk; continue;}))
+
+ #else
