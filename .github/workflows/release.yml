@@ -33,13 +33,12 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: ${{ env.WKHTMLTOPDF_VERSION }}
-          outputs: type=local,dest=build
+          outputs: type=local,dest=dist
           platforms: ${{ matrix.platform }}
 
-      - name: Copy artifact
+      - name: Rename artifact
         run: |
-          mkdir -p dist/
-          cp -v build/wkhtmltox-$WKHTMLTOPDF_VERSION.tar.xz dist/wkhtmltox-$WKHTMLTOPDF_VERSION-$PLATFORM_PAIR.tar.xz
+          mv -v dist/wkhtmltox-$WKHTMLTOPDF_VERSION.tar.xz dist/wkhtmltox-$WKHTMLTOPDF_VERSION-$PLATFORM_PAIR.tar.xz
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -70,7 +69,7 @@ jobs:
           --repo '${{ github.repository }}'
           --notes ""
 
-      - name: Upload artifact signatures to GitHub Release
+      - name: Upload artifacts to GitHub Release
         env:
           GITHUB_TOKEN: ${{ github.token }}
         # Upload to GitHub Release using the `gh` CLI.
