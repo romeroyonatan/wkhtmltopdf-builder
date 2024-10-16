@@ -20,7 +20,7 @@ jobs:
         run: |
           mkdir dist/
           docker create --name builder wkhtmltopdf
-          docker cp builder:/wkhtmltox-0.12.2.1.tar.xz dist/wkhtmltox-0.12.2.1-${uname -m}.tar.xz 
+          docker cp builder:/wkhtmltox-0.12.2.1.tar.xz dist/
 
       - uses: actions/upload-artifact@v4
         with:
