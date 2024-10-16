@@ -15,7 +15,7 @@ that renders HTML into PDF using the Qt WebKit rendering engine.
 ## Features
 
 - Build `wkhtmltopdf` from source on Debian 12 (bookworm)
-- Just `docker` is needed
+- `docker` is only required dependency
 
 ## Requirements
 
@@ -44,7 +44,7 @@ Once the build is complete, you can extract `wkhtmltopdf` from the container as 
 
 ```
 docker create --name builder wkhtmltopdf
-docker cp builder:/wkhtmltopdf-$VERSION.tar.xz .
+docker cp builder:/wkhtmltox-$VERSION.tar.xz .
 ```
 
 ## Contributing

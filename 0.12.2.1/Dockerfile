@@ -30,13 +30,13 @@ WORKDIR /src
 ADD https://github.com/wkhtmltopdf/wkhtmltopdf/archive/refs/tags/${WKHTMLTOPDF_VERSION}.tar.gz wkhtmltopdf.tar.gz
 ADD https://github.com/wkhtmltopdf/qt/archive/${QT_COMMIT}.zip qt.zip
 
-COPY patches-${WKHTMLTOPDF_VERSION} ./patches-${WKHTMLTOPDF_VERSION}
+COPY patches patches/
 
 RUN tar xzvf wkhtmltopdf.tar.gz && \
     unzip qt.zip && \
     rm -rf wkhtmltopdf-${WKHTMLTOPDF_VERSION}/qt && \
     mv qt-${QT_COMMIT} wkhtmltopdf-${WKHTMLTOPDF_VERSION}/qt  && \
-    find patches-${WKHTMLTOPDF_VERSION} -type f -name '*.patch' -print0 | xargs -t -n 1 -0 patch -p0 -i
+    find patches -type f -name '*.patch' -print0 | xargs -t -n 1 -0 patch -p0 -i
 
 COPY --from=build_openssl ${OPENSSL_PATH} ${OPENSSL_PATH}
 
