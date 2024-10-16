@@ -9,8 +9,6 @@ that renders HTML into PDF using the Qt WebKit rendering engine.
 - [Features](#features)
 - [Requirements](#requirements)
 - [Building wkhtmltopdf](#building-wkhtmltopdf)
-- [Usage](#usage)
-- [Contributing](#contributing)
 
 ## Features
 
@@ -28,21 +26,16 @@ Before you begin, ensure you have the following installed:
 To build `wkhtmltopdf`, run the following command:
 
 ```bash
-cd $VERSION
-docker build . -t wkhtmltopdf-builder
+make
 ```
+
+You can also build an spercific version using
+```bash
+make VERSION=0.12.2.1
+````
 
 This script will:
 
 - Download the latest version of `wkhtmltopdf`, `openssl` and `qt`
 - Compile the source code.
-- Create a tarball with the artifacts in `/`
-
-## Usage
-
-Once the build is complete, you can extract `wkhtmltox` from the container as follows:
-
-```bash
-docker create --name builder wkhtmltopdf-builder
-docker cp builder:/wkhtmltox-$VERSION.tar.xz .
-```
+- Create a tarball with the artifacts in `dist/`
