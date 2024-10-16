@@ -31,16 +31,16 @@ jobs:
       
       - name: Build
         uses: docker/build-push-action@v6
+        id: build
         with:
           context: ${{ env.WKHTMLTOPDF_VERSION }}/
-          file: ${{ env.WKHTMLTOPDF_VERSION }}.Dockerfile
-          outputs: type=image,name=wkhtmltopdf
+          outputs: type=image,name=wkhtmltopdf-builder
           platforms: ${{ matrix.platform }}
 
       - name: Copy artifact
         run: |
           mkdir dist/
-          docker create --name builder wkhtmltopdf
+          docker create --name builder ${{ steps.build.outputs.imageid }}
           docker cp builder:/wkhtmltox-$WKHTMLTOPDF_VERSION.tar.xz dist/wkhtmltox-$WKHTMLTOPDF_VERSION-$PLATFORM_PAIR.tar.xz
 
       - name: Upload artifacts
