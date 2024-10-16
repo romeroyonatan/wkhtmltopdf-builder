@@ -51,4 +51,6 @@ ARG TARGETARCH
 
 ENV WKHTMLTOPDF_VERSION=0.12.2.1
 
-COPY --from=build_wkhtmltopdf /src/wkhtmltopdf-${WKHTMLTOPDF_VERSION}/static-build/wkhtmltox-${WKHTMLTOPDF_VERSION}_local-*.tar.xz /wkhtmltox-${WKHTMLTOPDF_VERSION}-${TARGETOS}-${TARGETARCH}.tar.xz
+COPY --from=build_wkhtmltopdf \
+    /src/wkhtmltopdf-${WKHTMLTOPDF_VERSION}/static-build/wkhtmltox-${WKHTMLTOPDF_VERSION}_local-*.tar.xz \
+    /wkhtmltox-${WKHTMLTOPDF_VERSION}-${TARGETOS}-${TARGETARCH}.tar.xz
