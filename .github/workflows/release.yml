@@ -16,6 +16,8 @@ jobs:
     env:
       WKHTMLTOPDF_VERSION: "0.12.2.1"
     steps:
+      - uses: actions/checkout@v4
+
       - name: Prepare
         run: |
           platform=${{ matrix.platform }}
@@ -30,7 +32,7 @@ jobs:
       - name: Build
         uses: docker/build-push-action@v6
         with:
-          context: ${{ env.WKHTMLTOPDF_VERSION }}
+          context: ${{ env.WKHTMLTOPDF_VERSION }}/
           file: ${{ env.WKHTMLTOPDF_VERSION }}.Dockerfile
           outputs: type=image,name=wkhtmltopdf
           platforms: ${{ matrix.platform }}
