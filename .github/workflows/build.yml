@@ -1,0 +1,55 @@
+name: Build wkhtmltopdf
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build docker image
+        run: |
+          docker build . -f 0.12.2.1.Dockerfile -t wkhtmltopdf
+
+      - name: Copy artifact
+        run: |
+          mkdir dist/
+          docker create --name builder wkhtmltopdf
+          docker cp builder:/wkhtmltox-0.12.2.1.tar.xz dist/wkhtmltox-0.12.2.1-${uname -m}.tar.xz 
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: wkhtmltopdf
+          path: dist/
+
+  release:
+    runs-on: ubuntu-latest
+    depends-on: [build]
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: wkhtmltopdf
+
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload artifacts
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref }}
+          files: artifacts/x86/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
