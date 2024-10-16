@@ -37,8 +37,10 @@ jobs:
           platforms: ${{ matrix.platform }}
 
       - name: Rename artifact
-        run: |
-          mv -v dist/wkhtmltox-$WKHTMLTOPDF_VERSION.tar.xz dist/wkhtmltox-$WKHTMLTOPDF_VERSION-$PLATFORM_PAIR.tar.xz
+        run: >-
+          mv -v 
+          dist/wkhtmltox-$WKHTMLTOPDF_VERSION.tar.xz 
+          dist/wkhtmltox-$WKHTMLTOPDF_VERSION-$PLATFORM_PAIR.tar.xz
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
