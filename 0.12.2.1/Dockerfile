@@ -42,5 +42,9 @@ COPY --from=build_openssl ${OPENSSL_PATH} ${OPENSSL_PATH}
 
 RUN cd wkhtmltopdf-${WKHTMLTOPDF_VERSION}/ && \
     scripts/build.py posix-local
-
 RUN bash -c "cp -v wkhtmltopdf-${WKHTMLTOPDF_VERSION}/static-build/wkhtmltox-${WKHTMLTOPDF_VERSION}_local-*.tar.xz /wkhtmltox-${WKHTMLTOPDF_VERSION}.tar.xz"
+
+# -------------------------------------------------------------------------------
+FROM scratch AS result
+ENV WKHTMLTOPDF_VERSION=0.12.2.1
+COPY --from=build_wkhtmltopdf /wkhtmltox-${WKHTMLTOPDF_VERSION}.tar.xz .
