@@ -31,23 +31,21 @@ jobs:
       
       - name: Build
         uses: docker/build-push-action@v6
-        id: build
         with:
-          context: ${{ env.WKHTMLTOPDF_VERSION }}/
-          outputs: type=image,name=wkhtmltopdf-builder
+          context: ${{ env.WKHTMLTOPDF_VERSION }}
+          outputs: type=local,dest=build
           platforms: ${{ matrix.platform }}
 
       - name: Copy artifact
         run: |
-          mkdir dist/
-          docker create --name builder ${{ steps.build.outputs.imageid }}
-          docker cp builder:/wkhtmltox-$WKHTMLTOPDF_VERSION.tar.xz dist/wkhtmltox-$WKHTMLTOPDF_VERSION-$PLATFORM_PAIR.tar.xz
+          mkdir -p dist/
+          cp -v build/wkhtmltox-$WKHTMLTOPDF_VERSION.tar.xz dist/wkhtmltox-$WKHTMLTOPDF_VERSION-$PLATFORM_PAIR.tar.xz
 
-      - name: Upload artifacts
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: wkhtmltox-${{ env.PLATFORM_PAIR }}
-          path: dist/*
+          path: dist/wkhtmltox-${{ env.WKHTMLTOPDF_VERSION }}-${{ env.PLATFORM_PAIR }}.tar.xz
           if-no-files-found: error
           retention-days: 1
 
