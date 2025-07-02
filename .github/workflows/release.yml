@@ -4,9 +4,13 @@ permissions:
   contents: write
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'wkhtmltopdf version to build'
+        required: true
+        default: '0.12.5'
+        type: string
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -21,7 +25,7 @@ jobs:
           - linux/amd64
           - linux/arm64
     env:
-      WKHTMLTOPDF_VERSION: "0.12.2.1"
+      WKHTMLTOPDF_VERSION: ${{ inputs.version }}
     steps:
       - uses: actions/checkout@v4
 
@@ -68,9 +72,9 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         run: >-
           gh release create
-          '${{ github.ref_name }}'
+          'v${{ inputs.version }}'
           --repo '${{ github.repository }}'
-          --notes ""
+          --notes "wkhtmltopdf ${{ inputs.version }} release"
 
       - name: Upload artifacts to GitHub Release
         env:
@@ -79,5 +83,5 @@ jobs:
         # `dist/` contains the built packages
         run: >-
           gh release upload
-          '${{ github.ref_name }}' dist/**
+          'v${{ inputs.version }}' dist/**
           --repo '${{ github.repository }}'
