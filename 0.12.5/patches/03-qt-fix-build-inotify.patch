@@ -1,0 +1,24 @@
+--- wkhtmltopdf-0.12.5/qt/src/corelib/io/io.pri	2025-07-02 16:52:12.524621664 +0000
++++ patches-0.12.5/io.pri	2025-07-02 16:51:44.369228043 +0000
+@@ -36,7 +36,9 @@
+         io/qfilesystementry_p.h \
+         io/qfilesystemengine_p.h \
+         io/qfilesystemmetadata_p.h \
+-        io/qfilesystemiterator_p.h
++        io/qfilesystemiterator_p.h \
++        io/qfilesystemwatcher_inotify_p.h \
++        io/qfilesystemwatcher_dnotify_p.h
+
+ SOURCES += \
+         io/qabstractfileengine.cpp \
+@@ -62,7 +64,9 @@
+         io/qfsfileengine_iterator.cpp \
+         io/qfilesystemwatcher.cpp \
+         io/qfilesystementry.cpp \
+-        io/qfilesystemengine.cpp
++        io/qfilesystemengine.cpp \
++        io/qfilesystemwatcher_inotify.cpp \
++        io/qfilesystemwatcher_dnotify.cpp
+
+ win32 {
+         SOURCES += io/qsettings_win.cpp

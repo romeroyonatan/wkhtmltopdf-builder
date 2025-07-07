@@ -1,0 +1,11 @@
+--- wkhtmltopdf-0.12.5/src/pdf/pdf.pro	2018-06-10 11:21:38.000000000 +0000
++++ patches-0.12.5/pdf.pro	2025-07-04 14:19:08.462911755 +0000
+@@ -22,6 +22,8 @@
+ DESTDIR = ../../bin
+ DEPENDPATH += . ../shared
+ INCLUDEPATH += . ../shared
++QMAKE_LFLAGS += -static-libgcc
++QMAKE_LIBS_THREAD += -lssl -lcrypto
+
+ unix {
+     man.path=$$INSTALLBASE/share/man/man1
