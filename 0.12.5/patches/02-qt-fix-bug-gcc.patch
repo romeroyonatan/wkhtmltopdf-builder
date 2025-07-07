@@ -1,0 +1,11 @@
+# https://forum.qt.io/topic/142527/qt-4-8-7-compilation-fails-qprint-errors/4
+--- wkhtmltopdf-0.12.5/qt/src/corelib/global/qglobal.h	2018-05-29 06:56:52.000000000 +0000
++++ patches-0.12.5/qglobal.h	2025-06-26 22:04:10.572096130 +0000
+@@ -2497,7 +2497,7 @@
+ for (QForeachContainer<__typeof__(container)> _container_(container); \
+      !_container_.brk && _container_.i != _container_.e;              \
+      __extension__  ({ ++_container_.brk; ++_container_.i; }))                       \
+-    for (variable = *_container_.i;; __extension__ ({--_container_.brk; break;}))
++    for (variable = *_container_.i;; __extension__ ({--_container_.brk; continue;}))
+
+ #else

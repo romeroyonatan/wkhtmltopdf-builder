@@ -1,0 +1,14 @@
+# Enable build webkit and disable inotify
+--- wkhtmltopdf-0.12.5/qt/configure	2025-06-27 14:47:27.293510496 +0000
++++ patches-0.12.5/configure	2025-06-27 14:46:47.070557150 +0000
+@@ -7760,8 +7760,8 @@
+                 canBuildWebKit="no"
+                 ;;
+ 	    *)
+-		canBuildWebKit="no"
+-		canBuildQtXmlPatterns="no"
++		canBuildWebKit="yes"
++		canBuildQtXmlPatterns="yes"
+ 		;;
+ 	esac
+ 	;;
