@@ -67,6 +67,8 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           merge-multiple: true
+          path: dist/
+          pattern: "wkhtmltopdf-*"
 
       - name: Create GitHub Release
         env:
