@@ -18,12 +18,15 @@ concurrency:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.arch.runner }}
     strategy:
+      fail-fast: false
       matrix:
-        platform:
-          - linux/amd64
-         # - linux/arm64
+        arch:
+          - platform: linux/amd64
+            runner: ubuntu-24.04
+          - platform: linux/arm64
+            runner: ubuntu-24.04-arm
     env:
       WKHTMLTOPDF_VERSION: ${{ inputs.version }}
     steps:
@@ -31,7 +34,7 @@ jobs:
 
       - name: Prepare
         run: |
-          platform=${{ matrix.platform }}
+          platform=${{ matrix.arch.platform }}
           echo "PLATFORM_PAIR=${platform//\//-}" | tee -a $GITHUB_ENV
       
       - name: Set up QEMU
@@ -45,12 +48,12 @@ jobs:
         with:
           context: ${{ env.WKHTMLTOPDF_VERSION }}
           outputs: type=local,dest=dist
-          platforms: ${{ matrix.platform }}
+          platforms: ${{ matrix.arch.platform }}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: wkhtmltox-${{ env.PLATFORM_PAIR }}
+          name: wkhtmltopdf-${{ env.PLATFORM_PAIR }}
           path: dist/
           if-no-files-found: error
           retention-days: 1
@@ -63,9 +66,10 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
-          path: dist/
           merge-multiple: true
-      
+          path: dist/
+          pattern: "wkhtmltopdf-*"
+
       - name: Create GitHub Release
         env:
           GITHUB_TOKEN: ${{ github.token }}
